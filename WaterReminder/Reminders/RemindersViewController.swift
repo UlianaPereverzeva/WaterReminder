@@ -16,6 +16,7 @@ enum ReminderSettingsType {
 final class RemindersViewController: UIViewController {
     
     private var presenter: RemindersPresenterProtocol = RemindersPresenter()
+
     private var tableView: UITableView!
     let intervals = ["15 минут", "30 минут", "1 час", "2 часа"]
     var configuration = Configuration(reminders: false, from: "00:00", to: "00:00", interval: "0")
@@ -32,8 +33,6 @@ final class RemindersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-//        configuration.reminders = false
-//        tableView.reloadData()
         self.presenter.setView(self)
     }
     
@@ -107,6 +106,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section != 0 {
+
             let type: ReminderSettingsType
             switch indexPath.row {
             case 0:
@@ -158,6 +158,7 @@ extension RemindersViewController: RemindersViewProtocol {
         
         alertController.view.addSubview(datePicker)
         
+
         let doneAction = UIAlertAction(title: "Save", style: .default) { _ in
             let selectedTime = datePicker.countDownDuration
             
@@ -173,6 +174,7 @@ extension RemindersViewController: RemindersViewProtocol {
         present(alertController, animated: true, completion: nil)
     }
     
+
     func showIntervalPicker() {
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
@@ -202,3 +204,4 @@ extension RemindersViewController: SwitchTableViewCellDelegate {
         tableView.reloadData()
     }
 }
+
