@@ -7,3 +7,11 @@
 
 import Foundation
  
+protocol RemindersPresenterProtocol {
+    
+    func setView(_ view: RemindersViewProtocol)
+    func didSelectSettingsType(type: ReminderSettingsType) 
+    func handleSelectedTime(_ timeInSeconds: TimeInterval)
+    func handleSelectedInterval(_ interval: String)
+}
+

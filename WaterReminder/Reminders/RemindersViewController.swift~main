@@ -7,7 +7,15 @@
 
 import UIKit
 
-final class Reminders: UIViewController {
+enum ReminderSettingsType {
+    case from
+    case to
+    case interval
+}
+
+final class RemindersViewController: UIViewController {
+    
+    private var presenter: RemindersPresenterProtocol = RemindersPresenter()
     
     private var tableView: UITableView!
     //var selectedTime: TimeInterval?
@@ -24,6 +32,7 @@ final class Reminders: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        self.presenter.setView(self)
     }
     
     private func setupTableView() {
@@ -42,7 +51,7 @@ final class Reminders: UIViewController {
         self.tableView = tableView
     }
 }
-extension Reminders: UITableViewDelegate, UITableViewDataSource {
+extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
     
 //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 //        return 100
@@ -82,7 +91,10 @@ extension Reminders: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showTimePicker()
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section != 0 {
+            showTimePicker()
+        }
     }
     
     func showTimePicker() {
@@ -117,4 +129,8 @@ extension Reminders: UITableViewDelegate, UITableViewDataSource {
         print("Selected Time: \(formattedString)")
         tableView.reloadData()
     }
+}
+
+extension RemindersViewController: RemindersViewProtocol {
+    
 }

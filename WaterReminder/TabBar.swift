@@ -18,15 +18,15 @@ class TabBar: UITabBarController {
         setupVCs()
     }
     
-    func setupVCs() {
+    private func setupVCs() {
         viewControllers = [
             createNavController(for: Main(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "drop")!),
             createNavController(for: MyAccount(), title: NSLocalizedString("MyAccount", comment: ""), image: UIImage(systemName: "person")!),
-            createNavController(for: Reminders(), title: NSLocalizedString("Reminders", comment: ""), image: UIImage(systemName: "bell.badge")!)
+            createNavController(for: RemindersViewController(), title: NSLocalizedString("Reminders", comment: ""), image: UIImage(systemName: "bell.badge")!)
         ]
     }
     
-    fileprivate func createNavController(for rootViewController: UIViewController,
+    private func createNavController(for rootViewController: UIViewController,
                                          title: String,
                                          image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
