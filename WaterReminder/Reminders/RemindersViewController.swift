@@ -18,7 +18,7 @@ final class RemindersViewController: UIViewController {
     private var presenter: RemindersPresenterProtocol = RemindersPresenter()
 
     private var tableView: UITableView!
-    let intervals = ["15 минут", "30 минут", "1 час", "2 часа"]
+    let intervals = ["15 минут", "30 минут", "1 час", "2 часа", "3 часа"]
     var configuration = Configuration(reminders: false, from: "00:00", to: "00:00", interval: "0")
     
     private enum Section: Int {
@@ -33,7 +33,20 @@ final class RemindersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        saveTimeToUserDefaults()
         self.presenter.setView(self)
+    }
+    
+    private func saveTimeToUserDefaults() {
+        if let savedFromTime = presenter.userDefaults.getTime(forKey: "fromTime") {
+            configuration.from = savedFromTime
+        }
+        if let savedToTime = presenter.userDefaults.getTime(forKey: "toTime") {
+            configuration.to = savedToTime
+        }
+        if let savedIntervalTime = presenter.userDefaults.getTime(forKey: "intervalTime") {
+            configuration.interval = savedIntervalTime
+        }
     }
     
     private func setupTableView() {
@@ -145,6 +158,7 @@ extension RemindersViewController: RemindersViewProtocol {
     
     func updateLabelInCell(value: Configuration) {
         self.configuration = value
+        //presenter.saveSelectedTime(value.)
     }
     
     func showTimePicker() {
@@ -185,7 +199,7 @@ extension RemindersViewController: RemindersViewProtocol {
         alertController.view.addSubview(IntervalPicker)
         
         let doneAction = UIAlertAction(title: "Save", style: .default) { _ in
-            self.presenter.handleSelectedInterval(self.configuration.interval)
+            self.presenter.handleSelectedTime(self.configuration.interval)
             self.tableView.reloadData()
         }
         

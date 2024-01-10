@@ -11,7 +11,8 @@ protocol RemindersPresenterProtocol {
     
     func setView(_ view: RemindersViewProtocol)
     func didSelectSettingsType(type: ReminderSettingsType) 
-    func handleSelectedTime(_ timeInSeconds: TimeInterval)
-    func handleSelectedInterval(_ interval: String)
+    func handleSelectedTime(_ time: Any)
+    var userDefaults: UserSettings { get }
+    
 }
 

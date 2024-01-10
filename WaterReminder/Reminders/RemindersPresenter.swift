@@ -11,9 +11,15 @@ final class RemindersPresenter {
     weak var view: RemindersViewProtocol?
     private var configuration = Configuration(reminders: false, from: "00:00", to: "00:00", interval: "0")
     private var lastSelectedSettingType: ReminderSettingsType = .from
+    internal let userDefaults: UserSettings
+    
+    init(userDefaults: UserSettings = UserDefaultsManager()) {
+        self.userDefaults = userDefaults
+    }
 }
 
 extension RemindersPresenter: RemindersPresenterProtocol {
+    
     func didSelectSettingsType(type: ReminderSettingsType) {
         switch type {
         case .from:
@@ -23,7 +29,6 @@ extension RemindersPresenter: RemindersPresenterProtocol {
         case .interval:
             view?.showIntervalPicker()
         }
-    
         self.lastSelectedSettingType = type
     }
     
@@ -31,29 +36,33 @@ extension RemindersPresenter: RemindersPresenterProtocol {
         self.view = view
     }
     
-    func handleSelectedTime(_ timeInSeconds: TimeInterval) {
-        let hours = Int(timeInSeconds) / 3600
-        let minutes = (Int(timeInSeconds) % 3600) / 60
-        
-        let formattedString = String(format: "%02d:%02d", hours, minutes)
-        
+    func handleSelectedTime(_ time: Any) {
         switch lastSelectedSettingType {
-                case .from:
-                    configuration.from = formattedString
-            view?.updateLabelInCell(value: configuration)
-                case .to:
-                    configuration.to = formattedString
-            view?.updateLabelInCell(value: configuration)
-
-                case .interval:
-                    break
-                }
-        print("Selected Time: \(formattedString)")
-    }
-    
-    func handleSelectedInterval(_ interval: String) {
-        configuration.interval = interval
-        view?.updateLabelInCell(value: configuration)
+        case .from:
+            if let selectedTime = time as? TimeInterval {
+                let hours = Int(selectedTime) / 3600
+                let minutes = (Int(selectedTime) % 3600) / 60
+                let formattedString = String(format: "%02d:%02d", hours, minutes)
+                configuration.from = formattedString
+                userDefaults.saveTime(formattedString, forKey: "fromTime")
+                view?.updateLabelInCell(value: configuration)
+            }
+        case .to:
+            if let selectedTime = time as? TimeInterval {
+                let hours = Int(selectedTime) / 3600
+                let minutes = (Int(selectedTime) % 3600) / 60
+                let formattedString = String(format: "%02d:%02d", hours, minutes)
+                configuration.to = formattedString
+                userDefaults.saveTime(formattedString, forKey: "toTime")
+                view?.updateLabelInCell(value: configuration)
+            }
+        case .interval:
+            if let interval = time as? String {
+                configuration.interval = interval
+                userDefaults.saveTime(interval, forKey: "intervalTime")
+                view?.updateLabelInCell(value: configuration)
+            }
+        }
     }
 }
 

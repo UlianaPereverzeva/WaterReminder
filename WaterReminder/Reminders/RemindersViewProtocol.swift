@@ -12,7 +12,6 @@ protocol RemindersViewProtocol: AnyObject {
     func showIntervalPicker()
     func updateLabelInCell(value: Configuration)
     //func switchCellValueChanged(_ cell: SwitchTableViewCell, isOn: Bool)
-    
 }
 
 
