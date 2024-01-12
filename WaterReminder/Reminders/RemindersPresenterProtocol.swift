@@ -13,6 +13,6 @@ protocol RemindersPresenterProtocol {
     func didSelectSettingsType(type: ReminderSettingsType) 
     func handleSelectedTime(_ time: Any)
     var userDefaults: UserSettings { get }
-    
+    func scheduleNotification()
 }
 

@@ -17,7 +17,7 @@
 		855597852B4716A8002909EB /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597842B4716A8002909EB /* Main.swift */; };
 		855597872B47174B002909EB /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597862B47174B002909EB /* RemindersViewController.swift */; };
 		855597892B4717F8002909EB /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597882B4717F8002909EB /* ReminderCell.swift */; };
-		8555978B2B4730E9002909EB /* MyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8555978A2B4730E9002909EB /* MyAccount.swift */; };
+		8555978B2B4730E9002909EB /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8555978A2B4730E9002909EB /* MyAccountViewController.swift */; };
 		8555978F2B47F1CD002909EB /* RemindersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8555978E2B47F1CD002909EB /* RemindersPresenterProtocol.swift */; };
 		855597932B47F3CF002909EB /* RemindersViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597922B47F3CF002909EB /* RemindersViewProtocol.swift */; };
 		855597952B47F473002909EB /* RemindersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597942B47F473002909EB /* RemindersPresenter.swift */; };
@@ -36,7 +36,7 @@
 		855597842B4716A8002909EB /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		855597862B47174B002909EB /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
 		855597882B4717F8002909EB /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
-		8555978A2B4730E9002909EB /* MyAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccount.swift; sourceTree = "<group>"; };
+		8555978A2B4730E9002909EB /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		8555978E2B47F1CD002909EB /* RemindersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersPresenterProtocol.swift; sourceTree = "<group>"; };
 		855597922B47F3CF002909EB /* RemindersViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewProtocol.swift; sourceTree = "<group>"; };
 		855597942B47F473002909EB /* RemindersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersPresenter.swift; sourceTree = "<group>"; };
@@ -53,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		850949FE2B50172F00A856C2 /* MyAccount */ = {
+			isa = PBXGroup;
+			children = (
+				8555978A2B4730E9002909EB /* MyAccountViewController.swift */,
+			);
+			path = MyAccount;
+			sourceTree = "<group>";
+		};
 		855597622B47140D002909EB = {
 			isa = PBXGroup;
 			children = (
@@ -72,11 +80,11 @@
 		8555976D2B47140D002909EB /* WaterReminder */ = {
 			isa = PBXGroup;
 			children = (
+				850949FE2B50172F00A856C2 /* MyAccount */,
 				855597912B47F20F002909EB /* Reminders */,
 				8555977C2B47140F002909EB /* Info.plist */,
 				855597822B471628002909EB /* TabBar.swift */,
 				855597842B4716A8002909EB /* Main.swift */,
-				8555978A2B4730E9002909EB /* MyAccount.swift */,
 				8555978D2B475193002909EB /* Supporting Files */,
 			);
 			path = WaterReminder;
@@ -189,7 +197,7 @@
 				855597892B4717F8002909EB /* ReminderCell.swift in Sources */,
 				850949FD2B4EE8E500A856C2 /* UserDefaultsManager.swift in Sources */,
 				855597932B47F3CF002909EB /* RemindersViewProtocol.swift in Sources */,
-				8555978B2B4730E9002909EB /* MyAccount.swift in Sources */,
+				8555978B2B4730E9002909EB /* MyAccountViewController.swift in Sources */,
 				855597952B47F473002909EB /* RemindersPresenter.swift in Sources */,
 				855597832B471628002909EB /* TabBar.swift in Sources */,
 				8555978F2B47F1CD002909EB /* RemindersPresenterProtocol.swift in Sources */,

@@ -15,8 +15,21 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drop 1" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-18-QUO">
+                                <rect key="frame" x="111.66666666666669" y="341" width="170" height="170"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="8JF-3r-HmR"/>
+                                    <constraint firstAttribute="height" constant="170" id="KR4-nw-0L7"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="Mvg-18-QUO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0Gi-Ix-RX8"/>
+                            <constraint firstItem="Mvg-18-QUO" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="iwa-Oz-r4c"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -25,6 +38,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="drop 1" width="541" height="722"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -35,6 +35,8 @@ final class RemindersViewController: UIViewController {
         setupTableView()
         saveTimeToUserDefaults()
         self.presenter.setView(self)
+        tableView.backgroundColor = .systemBlue
+        //tableView.tintColor = .systemBlue
     }
     
     private func saveTimeToUserDefaults() {
@@ -47,6 +49,9 @@ final class RemindersViewController: UIViewController {
         if let savedIntervalTime = presenter.userDefaults.getTime(forKey: "intervalTime") {
             configuration.interval = savedIntervalTime
         }
+        if let savedSwitchState = presenter.userDefaults.getBool(forKey: "remindersEnabled") {
+            configuration.reminders = savedSwitchState
+        }
     }
     
     private func setupTableView() {
@@ -55,7 +60,7 @@ final class RemindersViewController: UIViewController {
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -91,6 +96,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(text: "Reminders")
             cell.switchControl.isOn = configuration.reminders
             cell.delegate = self
+            //cell.backgroundColor = UIColor(red: 0.82, green: 0.89, blue: 1.00, alpha: 1.00)
             return cell
         case .second:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReminderCell
@@ -105,6 +111,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configure(text: "", time: "")
             }
             cell.updateCellStyle(isEnabled: configuration.reminders)
+            //cell.backgroundColor = .systemBlue
             return cell
         case .none:
             fatalError("Invalid section")
@@ -214,7 +221,7 @@ extension RemindersViewController: RemindersViewProtocol {
 extension RemindersViewController: SwitchTableViewCellDelegate {
     func switchCellValueChanged(_ isOn: Bool) {
         configuration.reminders = isOn
-        print(configuration.reminders)
+        presenter.userDefaults.saveBool(isOn, forKey: "remindersEnabled")
         tableView.reloadData()
     }
 }
