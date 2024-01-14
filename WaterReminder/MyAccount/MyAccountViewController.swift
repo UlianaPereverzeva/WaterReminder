@@ -9,6 +9,8 @@ import UIKit
 
 final class MyAccountViewController: UIViewController {
     
+    private var presenter: MyAccountPresenerProtocol = MyAccountPresenter()
+    
     let genderStackView = UIStackView()
     let activityLevelStackView = UIStackView()
     var selectedButton: UIButton?
@@ -112,22 +114,37 @@ final class MyAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
-        setUpWeightStackView()
+        setUpGenderStackView()
         setUpActivityLevelStackView()
+        //setSavedButton()
+        
+        weightTextField.keyboardType = .numberPad
+        weightTextField.inputAccessoryView = createToolbar()
+        weightTextField.delegate = self
+        savedWeightInUserDefaults()
+        savedWaterIntakeInUserDefaults()
+        self.presenter.setView(self)
         view.backgroundColor = .systemBlue
     }
     
-    func setUpWeightStackView() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setSavedImageButton()
+        setSavedActivityLevel()
+        
+    }
+    
+    
+    func setUpGenderStackView() {
         genderStackView.axis = .horizontal
         genderStackView.spacing = 25
         genderStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let menButton = makeButton(imageName: "men")
+        let menButton = makeGenderButton(imageName: "men")
         genderStackView.addArrangedSubview(menButton)
         
-        let womenButton = makeButton(imageName: "women")
+        let womenButton = makeGenderButton(imageName: "women")
         genderStackView.addArrangedSubview(womenButton)
-        
     }
     
     func setUpActivityLevelStackView() {
@@ -137,9 +154,9 @@ final class MyAccountViewController: UIViewController {
         activityLevelStackView.distribution = .fillEqually
         activityLevelStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let lowButton = activityLevelButton(title: "Low", backgroundColor: .white, titleColor: .systemBlue)
-        let averageButton = activityLevelButton(title: "Аverage", backgroundColor: .white, titleColor: .systemBlue)
-        let highButton = activityLevelButton(title: "High", backgroundColor: .white, titleColor: .systemBlue)
+        let lowButton = makeActivityLevelButton(title: "Low", backgroundColor: .white, titleColor: .systemBlue, identifier: "low")
+        let averageButton = makeActivityLevelButton(title: "Аverage", backgroundColor: .white, titleColor: .systemBlue, identifier: "average")
+        let highButton = makeActivityLevelButton(title: "High", backgroundColor: .white, titleColor: .systemBlue, identifier: "high")
         
         activityLevelStackView.addArrangedSubview(lowButton)
         activityLevelStackView.addArrangedSubview(averageButton)
@@ -158,8 +175,8 @@ final class MyAccountViewController: UIViewController {
         view.addSubview(activityLevelStackView)
         view.addSubview(waterIntakeLevelLabel)
         view.addSubview(mlLevelLabel)
-
-
+        
+        
         mainLabelWaterIntake.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
         mainLabelWaterIntake.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -195,11 +212,11 @@ final class MyAccountViewController: UIViewController {
         
         mlLevelLabel.topAnchor.constraint(equalTo: waterIntakeLevelLabel.bottomAnchor, constant: 26).isActive = true
         mlLevelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
+        
         
     }
     
-    func makeButton(imageName: String) -> UIButton {
+    func makeGenderButton(imageName: String) -> UIButton {
         let button = UIButton(type: .custom)
         if let image = UIImage(named: imageName) {
             button.setImage(image, for: .normal)
@@ -211,23 +228,140 @@ final class MyAccountViewController: UIViewController {
         return button
     }
     
-    func activityLevelButton(title: String, backgroundColor: UIColor, titleColor: UIColor) -> UIButton {
-            let button = UIButton(type: .system)
-            button.setTitle(title, for: .normal)
-            button.backgroundColor = backgroundColor
-            button.setTitleColor(titleColor, for: .normal)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.layer.cornerRadius = 8  // закругление углов
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-
-            return button
-        }
-    
     @objc func buttonGenderTapped(sender: UIButton) {
+        
         selectedButton?.layer.borderWidth = 0.0
         sender.layer.borderWidth = 5.0
         sender.layer.cornerRadius = 28
         sender.layer.borderColor = CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
         selectedButton = sender
+        if let imageIdentifier = sender.accessibilityIdentifier {
+            presenter.userDefaults.saveImageIdentifier(imageIdentifier, forKey: "selectedImageIdentifier")
+        }
+        //setSavedButton()
+    }
+    
+    func setSavedImageButton() {
+        if let selectedImageName = presenter.userDefaults.getImageIdentifier(forKey: "selectedImageIdentifier") {
+            if let selectedButton = genderStackView.subviews.compactMap({ $0 as? UIButton }).first(where: { $0.accessibilityIdentifier == selectedImageName }) {
+                buttonGenderTapped(sender: selectedButton)
+            }
+        }
+    }
+    
+    @objc func saveButtonTapped() {
+        guard let weightText = weightTextField.text else { return }
+        presenter.userDefaults.saveKg(weightText, forKey: "userWeight")
+        if let activityLevel = presenter.userDefaults.getActivityLevel(forKey: "selectedActivityLevel") {
+            var multiplier = 1
+            
+            switch activityLevel {
+            case "low":
+                multiplier = 25
+            case "average":
+                multiplier = 27
+            case "high":
+                multiplier = 30
+            default:
+                break
+            }
+            if let weight = Int(weightText) {
+                let waterIntake = weight * multiplier
+                mlLevelLabel.text = "\(waterIntake) ml"
+                presenter.userDefaults.saveWaterIntake("\(waterIntake) ml", forKey: "userWaterIntake")
+            }
+        }
+        view.endEditing(true)
+    }
+    
+    func makeActivityLevelButton(title: String, backgroundColor: UIColor, titleColor: UIColor, identifier: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(titleColor, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.accessibilityIdentifier = identifier
+        button.addTarget(self, action: #selector(activityLevelButtonTapped), for: .touchUpInside)
+        return button
+    }
+    
+    @objc func activityLevelButtonTapped(sender: UIButton) {
+        if let activityLevel = sender.accessibilityIdentifier {
+            presenter.userDefaults.saveActivityLevel(activityLevel, forKey: "selectedActivityLevel")
+            
+            if let weightText = weightTextField.text, let weight = Int(weightText) {
+                updateWaterIntakeLabel(weight: weight, activityLevel: activityLevel)
+            }
+        }
+        selectedButton?.layer.borderWidth = 0.0
+        sender.layer.borderWidth = 5.0
+        sender.layer.cornerRadius = 8
+        sender.layer.borderColor = CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
+        selectedButton = sender
+    }
+    
+    func setSavedActivityLevel() {
+        if let selectedActivityLevel = presenter.userDefaults.getActivityLevel(forKey: "selectedActivityLevel") {
+            if let selectedButton = activityLevelStackView.subviews.compactMap({ $0 as? UIButton }).first(where: { $0.accessibilityIdentifier == selectedActivityLevel }) {
+                activityLevelButtonTapped(sender: selectedButton)
+            }
+        }
+    }
+    
+    func updateWaterIntakeLabel(weight: Int, activityLevel: String) {
+        var multiplier = 1
+        switch activityLevel {
+        case "low":
+            multiplier = 25
+        case "average":
+            multiplier = 27
+        case "high":
+            multiplier = 30
+        default:
+            break
+        }
+        let waterIntake = weight * multiplier
+        mlLevelLabel.text = "\(waterIntake) ml"
+        presenter.userDefaults.saveWaterIntake("\(waterIntake) ml", forKey: "userWaterIntake")
+    }
+    
+    func savedWaterIntakeInUserDefaults() {
+        if let savedWaterIntake = presenter.userDefaults.getWaterIntake(forKey: "userWaterIntake") {
+            mlLevelLabel.text = savedWaterIntake
+        }
+    }
+}
+
+extension MyAccountViewController: MyAccountViewProtocol {
+    
+}
+
+extension MyAccountViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+    
+    func createToolbar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.isTranslucent = true
+        toolbar.sizeToFit()
+        
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbar.setItems([flexibleSpace, saveButton], animated: false)
+        
+        return toolbar
+    }
+    
+    func savedWeightInUserDefaults() {
+        if let savedWeight = presenter.userDefaults.getKg(forKey: "userWeight") {
+            weightTextField.text = savedWeight
+        }
     }
 }

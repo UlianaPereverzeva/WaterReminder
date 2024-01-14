@@ -22,7 +22,7 @@ class TabBar: UITabBarController {
     private func setupVCs() {
         viewControllers = [
             createNavController(for: Main(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "drop")!),
-            createNavController(for: MyAccount(), title: NSLocalizedString("MyAccount", comment: ""), image: UIImage(systemName: "person")!),
+            createNavController(for: MyAccountViewController(), title: NSLocalizedString("MyAccount", comment: ""), image: UIImage(systemName: "person")!),
             createNavController(for: RemindersViewController(), title: NSLocalizedString("Reminders", comment: ""), image: UIImage(systemName: "bell.badge")!)
         ]
     }
