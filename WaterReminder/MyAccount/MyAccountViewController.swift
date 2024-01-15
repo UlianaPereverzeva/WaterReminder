@@ -13,7 +13,13 @@ final class MyAccountViewController: UIViewController {
     
     let genderStackView = UIStackView()
     let activityLevelStackView = UIStackView()
-    var selectedButton: UIButton?
+    var menButton: UIButton?
+    var womenButton: UIButton?
+    var lowButton: UIButton?
+    var averageButton: UIButton?
+    var highButton: UIButton?
+    
+    
     
     let weightTextField: UITextField = {
         let textField = UITextField()
@@ -116,35 +122,26 @@ final class MyAccountViewController: UIViewController {
         setUpConstraints()
         setUpGenderStackView()
         setUpActivityLevelStackView()
-        //setSavedButton()
-        
         weightTextField.keyboardType = .numberPad
         weightTextField.inputAccessoryView = createToolbar()
         weightTextField.delegate = self
-        savedWeightInUserDefaults()
-        savedWaterIntakeInUserDefaults()
         self.presenter.setView(self)
+        self.presenter.viewDidLoad()
         view.backgroundColor = .systemBlue
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setSavedImageButton()
-        setSavedActivityLevel()
-        
-    }
-    
     
     func setUpGenderStackView() {
         genderStackView.axis = .horizontal
         genderStackView.spacing = 25
         genderStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let menButton = makeGenderButton(imageName: "men")
+        let menButton = makeGenderButton(gender: Gender.men)
         genderStackView.addArrangedSubview(menButton)
+        self.menButton = menButton
         
-        let womenButton = makeGenderButton(imageName: "women")
+        let womenButton = makeGenderButton(gender: Gender.women)
         genderStackView.addArrangedSubview(womenButton)
+        self.womenButton = womenButton
     }
     
     func setUpActivityLevelStackView() {
@@ -155,8 +152,12 @@ final class MyAccountViewController: UIViewController {
         activityLevelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let lowButton = makeActivityLevelButton(title: "Low", backgroundColor: .white, titleColor: .systemBlue, identifier: "low")
+        self.lowButton = lowButton
         let averageButton = makeActivityLevelButton(title: "Аverage", backgroundColor: .white, titleColor: .systemBlue, identifier: "average")
+        self.averageButton = averageButton
         let highButton = makeActivityLevelButton(title: "High", backgroundColor: .white, titleColor: .systemBlue, identifier: "high")
+        self.highButton = highButton
+        
         
         activityLevelStackView.addArrangedSubview(lowButton)
         activityLevelStackView.addArrangedSubview(averageButton)
@@ -175,7 +176,6 @@ final class MyAccountViewController: UIViewController {
         view.addSubview(activityLevelStackView)
         view.addSubview(waterIntakeLevelLabel)
         view.addSubview(mlLevelLabel)
-        
         
         mainLabelWaterIntake.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
         mainLabelWaterIntake.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -212,13 +212,13 @@ final class MyAccountViewController: UIViewController {
         
         mlLevelLabel.topAnchor.constraint(equalTo: waterIntakeLevelLabel.bottomAnchor, constant: 26).isActive = true
         mlLevelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
     }
     
-    func makeGenderButton(imageName: String) -> UIButton {
+    func makeGenderButton(gender: Gender) -> UIButton {
         let button = UIButton(type: .custom)
-        if let image = UIImage(named: imageName) {
+        button.accessibilityIdentifier = gender.identifier
+        
+        if let image = UIImage(named: gender.imageName) {
             button.setImage(image, for: .normal)
         }
         let imageSize = CGSize(width: 137, height: 164)
@@ -229,49 +229,18 @@ final class MyAccountViewController: UIViewController {
     }
     
     @objc func buttonGenderTapped(sender: UIButton) {
-        
-        selectedButton?.layer.borderWidth = 0.0
-        sender.layer.borderWidth = 5.0
-        sender.layer.cornerRadius = 28
-        sender.layer.borderColor = CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
-        selectedButton = sender
-        if let imageIdentifier = sender.accessibilityIdentifier {
-            presenter.userDefaults.saveImageIdentifier(imageIdentifier, forKey: "selectedImageIdentifier")
-        }
-        //setSavedButton()
-    }
-    
-    func setSavedImageButton() {
-        if let selectedImageName = presenter.userDefaults.getImageIdentifier(forKey: "selectedImageIdentifier") {
-            if let selectedButton = genderStackView.subviews.compactMap({ $0 as? UIButton }).first(where: { $0.accessibilityIdentifier == selectedImageName }) {
-                buttonGenderTapped(sender: selectedButton)
-            }
+        if sender.accessibilityIdentifier == Gender.men.identifier {
+            presenter.didSelectGender(gender: .men)
+        } else if sender.accessibilityIdentifier == Gender.women.identifier {
+            presenter.didSelectGender(gender: .women)
         }
     }
     
     @objc func saveButtonTapped() {
-        guard let weightText = weightTextField.text else { return }
-        presenter.userDefaults.saveKg(weightText, forKey: "userWeight")
-        if let activityLevel = presenter.userDefaults.getActivityLevel(forKey: "selectedActivityLevel") {
-            var multiplier = 1
-            
-            switch activityLevel {
-            case "low":
-                multiplier = 25
-            case "average":
-                multiplier = 27
-            case "high":
-                multiplier = 30
-            default:
-                break
-            }
-            if let weight = Int(weightText) {
-                let waterIntake = weight * multiplier
-                mlLevelLabel.text = "\(waterIntake) ml"
-                presenter.userDefaults.saveWaterIntake("\(waterIntake) ml", forKey: "userWaterIntake")
-            }
-        }
         view.endEditing(true)
+        if let text = weightTextField.text {
+            presenter.saveButtonTapped(with: text)
+        }
     }
     
     func makeActivityLevelButton(title: String, backgroundColor: UIColor, titleColor: UIColor, identifier: String) -> UIButton {
@@ -288,57 +257,72 @@ final class MyAccountViewController: UIViewController {
     }
     
     @objc func activityLevelButtonTapped(sender: UIButton) {
-        if let activityLevel = sender.accessibilityIdentifier {
-            presenter.userDefaults.saveActivityLevel(activityLevel, forKey: "selectedActivityLevel")
-            
-            if let weightText = weightTextField.text, let weight = Int(weightText) {
-                updateWaterIntakeLabel(weight: weight, activityLevel: activityLevel)
-            }
-        }
-        selectedButton?.layer.borderWidth = 0.0
-        sender.layer.borderWidth = 5.0
-        sender.layer.cornerRadius = 8
-        sender.layer.borderColor = CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
-        selectedButton = sender
-    }
-    
-    func setSavedActivityLevel() {
-        if let selectedActivityLevel = presenter.userDefaults.getActivityLevel(forKey: "selectedActivityLevel") {
-            if let selectedButton = activityLevelStackView.subviews.compactMap({ $0 as? UIButton }).first(where: { $0.accessibilityIdentifier == selectedActivityLevel }) {
-                activityLevelButtonTapped(sender: selectedButton)
-            }
+        
+        if sender.accessibilityIdentifier == ActivityLevel.low.identifier {
+            presenter.didSelectActivityLevel(activity: .low)
+        } else if sender.accessibilityIdentifier == ActivityLevel.average.identifier {
+            presenter.didSelectActivityLevel(activity: .average)
+        } else if sender.accessibilityIdentifier == ActivityLevel.high.identifier {
+            presenter.didSelectActivityLevel(activity: .high)
         }
     }
     
-    func updateWaterIntakeLabel(weight: Int, activityLevel: String) {
-        var multiplier = 1
-        switch activityLevel {
-        case "low":
-            multiplier = 25
-        case "average":
-            multiplier = 27
-        case "high":
-            multiplier = 30
-        default:
-            break
-        }
-        let waterIntake = weight * multiplier
-        mlLevelLabel.text = "\(waterIntake) ml"
-        presenter.userDefaults.saveWaterIntake("\(waterIntake) ml", forKey: "userWaterIntake")
+    func setupGenderButton(button: UIButton?, selected: Bool) {
+        button?.layer.borderWidth = 0.0
+        button?.layer.borderWidth = selected ? 5.0 : 0.0
+        button?.layer.cornerRadius = selected ? 28 : 0
+        button?.layer.borderColor = selected ? CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00) : .none
     }
-    
-    func savedWaterIntakeInUserDefaults() {
-        if let savedWaterIntake = presenter.userDefaults.getWaterIntake(forKey: "userWaterIntake") {
-            mlLevelLabel.text = savedWaterIntake
-        }
+    func setupActivityLevelButton(button: UIButton?, selected: Bool) {
+        button?.layer.borderWidth = 0.0
+        button?.layer.borderWidth = selected ? 5.0 : 0.0
+        button?.layer.cornerRadius = 8
+        button?.layer.borderColor = selected ? CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00) : .none
     }
 }
 
 extension MyAccountViewController: MyAccountViewProtocol {
     
+    func updateWaterIntakeLabel(_ text: String) {
+        mlLevelLabel.text = text
+    }
+    
+    func updateWeight(_ text: String) {
+        weightTextField.text = text
+    }
+    
+    func setSelectedGender(gender: Gender) {
+        
+        switch gender {
+        case .men:
+            self.setupGenderButton(button: self.menButton, selected: true)
+            self.setupGenderButton(button: self.womenButton, selected: false)
+        case .women:
+            self.setupGenderButton(button: self.menButton, selected: false)
+            self.setupGenderButton(button: self.womenButton, selected: true)
+        }
+    }
+    
+    func setSelectedActivityLevel(activity: ActivityLevel) {
+        switch activity {
+        case .low:
+            self.setupActivityLevelButton(button: self.lowButton , selected: true)
+            self.setupActivityLevelButton(button: self.averageButton , selected: false)
+            self.setupActivityLevelButton(button: self.highButton , selected: false)
+        case .average:
+            self.setupActivityLevelButton(button: self.averageButton, selected: true)
+            self.setupActivityLevelButton(button: self.lowButton , selected: false)
+            self.setupActivityLevelButton(button: self.highButton , selected: false)
+        case .high:
+            self.setupActivityLevelButton(button: self.highButton, selected: true)
+            self.setupActivityLevelButton(button: self.averageButton, selected: false)
+            self.setupActivityLevelButton(button: self.lowButton , selected: false)
+        }
+    }
 }
 
 extension MyAccountViewController: UITextFieldDelegate {
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
@@ -357,11 +341,5 @@ extension MyAccountViewController: UITextFieldDelegate {
         toolbar.setItems([flexibleSpace, saveButton], animated: false)
         
         return toolbar
-    }
-    
-    func savedWeightInUserDefaults() {
-        if let savedWeight = presenter.userDefaults.getKg(forKey: "userWeight") {
-            weightTextField.text = savedWeight
-        }
     }
 }

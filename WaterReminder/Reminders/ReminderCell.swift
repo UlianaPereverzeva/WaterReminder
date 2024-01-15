@@ -12,7 +12,7 @@ final class ReminderCell: UITableViewCell {
     private var text = UILabel()
     private var time = UILabel()
     private var arrow = UIImageView()
-
+    
     func configure(text: String, time: String) {
         self.text.text = text
         self.time.text = time
@@ -48,7 +48,7 @@ final class ReminderCell: UITableViewCell {
             
             self.time.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 31),
             self.time.leadingAnchor.constraint(equalTo: text.trailingAnchor, constant: 100),
-                        
+            
             self.arrow.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 31),
             self.arrow.leadingAnchor.constraint(equalTo: time.trailingAnchor, constant: 10),
             self.arrow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -3),
@@ -64,8 +64,8 @@ final class ReminderCell: UITableViewCell {
     }
     
     func updateCellStyle(isEnabled: Bool) {
-        text.textColor = isEnabled ? .darkGray : .lightGray
-        time.textColor = isEnabled ? .darkGray : .lightGray
+        text.textColor = isEnabled ? .white : UIColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
+        time.textColor = isEnabled ? .white : UIColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
         //arrow.tintColor = isEnabled ? .darkGray : .lightGray
         selectionStyle = isEnabled ? .default : .none
         isUserInteractionEnabled = isEnabled
@@ -91,7 +91,7 @@ final class SwitchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setUpUi() {
+    func setUpUi() {
         
         self.selectionStyle = .none
         
@@ -111,22 +111,24 @@ final class SwitchTableViewCell: UITableViewCell {
         ])
         
         self.text.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        self.text.textColor = .darkGray
+        self.text.textColor = .white
         self.text.textAlignment = .left
         
         switchControl.isOn = false
+        switchControl.layer.cornerRadius = switchControl.frame.height / 2.0
+        switchControl.backgroundColor = UIColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
+        switchControl.clipsToBounds = true
         switchControl.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
     }
     
     @objc func switchValueChanged(_ sender: UISwitch) {
         delegate?.switchCellValueChanged(sender.isOn)
         if sender.isOn {
-            self.text.textColor = UIColor.darkGray
+            self.text.textColor = UIColor.white
         } else {
-            self.text.textColor = UIColor.lightGray
+            self.text.textColor = UIColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00)
+            //self.selectionStyle = .none
         }
-        self.selectionStyle = .none
-
     }
 }
 protocol SwitchTableViewCellDelegate: AnyObject {

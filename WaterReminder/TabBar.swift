@@ -21,7 +21,7 @@ class TabBar: UITabBarController {
     
     private func setupVCs() {
         viewControllers = [
-            createNavController(for: Main(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "drop")!),
+            createNavController(for: MainViewController(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "drop")!),
             createNavController(for: MyAccountViewController(), title: NSLocalizedString("MyAccount", comment: ""), image: UIImage(systemName: "person")!),
             createNavController(for: RemindersViewController(), title: NSLocalizedString("Reminders", comment: ""), image: UIImage(systemName: "bell.badge")!)
         ]
@@ -31,6 +31,7 @@ class TabBar: UITabBarController {
                                          title: String,
                                          image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
+        navController.setNavigationBarHidden(true, animated: false)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         return navController

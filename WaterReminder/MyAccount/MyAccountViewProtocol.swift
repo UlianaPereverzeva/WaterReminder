@@ -8,5 +8,10 @@
 import Foundation
 
 protocol MyAccountViewProtocol: AnyObject {
+//    func updateSelectedButton(_ button: UIButton)
+    func updateWaterIntakeLabel(_ text: String)
+    func setSelectedGender(gender: Gender)
+    func setSelectedActivityLevel(activity: ActivityLevel)
+    func updateWeight(_ text: String)
     
 }
