@@ -11,12 +11,12 @@ class UserDefaultsManager: UserSettings {
     
     let userDefaults = UserDefaults.standard
     
-    func saveTime(_ time: String, forKey key: String) {
+    func saveTime(_ time: Int, forKey key: String) {
         userDefaults.set(time, forKey: key)
     }
     
-    func getTime(forKey key: String) -> String? {
-        userDefaults.string(forKey: key)
+    func getTime(forKey key: String) -> Int? {
+        userDefaults.integer(forKey: key)
     }
     
     func saveBool(_ value: Bool, forKey key: String) {
@@ -57,5 +57,49 @@ class UserDefaultsManager: UserSettings {
     
     func getWaterIntake(forKey key: String) -> String? {
         userDefaults.string(forKey: key)
+    }
+    
+    func saveMlGlassesDrunk(_ glasses: String, forKey key: String) {
+        userDefaults.set(glasses, forKey: key)
+    }
+    
+    func getNumberOfGlassesDrunk(forKey key: String) -> String? {
+        userDefaults.string(forKey: key)
+    }
+    
+    func saveLeftWater(_ intake: String, forKey key: String) {
+        userDefaults.set(intake, forKey: key)
+    }
+    
+    func getLeftWater(forKey key: String) -> String? {
+        userDefaults.string(forKey: key)
+    }
+    
+    func saveLastReadDate(_ date: Date) {
+        let timeInterval = date.timeIntervalSince1970
+        userDefaults.setValue(timeInterval, forKey: "lastReadDate")
+    }
+    
+    func getLastReadDate() -> Date? {
+        let timeInterval = userDefaults.double(forKey: "lastReadDate")
+        if timeInterval == 0 {
+            return nil
+        }
+        return Date(timeIntervalSince1970: timeInterval)
+    }
+    
+    func savePercentage(_ intake: String, forKey key: String){
+        userDefaults.set(intake, forKey: key)
+    }
+    func getPercentage(forKey key: String) -> String? {
+        userDefaults.string(forKey: key)
+    }
+    
+    func getPlannedNotificationIds() -> [String]? {
+        userDefaults.stringArray(forKey: "plannedNotifications")
+    }
+    
+    func setPlannedNotificationIds(ids: [String]?) {
+        userDefaults.setValue(ids, forKey: "plannedNotifications")
     }
 }

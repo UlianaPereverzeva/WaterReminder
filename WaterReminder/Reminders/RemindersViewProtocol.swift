@@ -12,7 +12,6 @@ protocol RemindersViewProtocol: AnyObject {
     func refresh(with configuration: Configuration)
     func showTimePicker()
     func showIntervalPicker()
-    //func updateLabelInCell(value: Configuration)
 }
 
 

@@ -66,3 +66,35 @@ enum ActivityLevel {
     }
 }
 
+enum NumberOfGlassesDrunk {
+    case small
+    case medium
+    case big
+    
+    init?(string: String) {
+        switch string {
+        case "100":
+            self = .small
+        case "250":
+            self = .medium
+        case "350":
+            self = .big
+        default:
+            return nil
+        }
+    }
+    
+    var identifier: String {
+        switch self {
+        case .small:
+            "100"
+        case .medium:
+            "250"
+        case .big:
+            "350"
+        }
+    }
+}
+
+
+

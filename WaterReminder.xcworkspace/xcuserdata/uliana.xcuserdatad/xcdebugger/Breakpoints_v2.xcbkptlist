@@ -3,4 +3,180 @@
    uuid = "08CA2FAD-519E-4301-A380-A62F96EA2AC6"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "96855107-C8FE-4A15-A192-33CD21BFEE3D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WaterReminder/Main/MainPresener.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "didSelectNumberOfGlassesDrunk(glasses:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "786549A5-7643-4E89-8B80-06E2945B6250"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WaterReminder/Main/MainPresener.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "didSelectNumberOfGlassesDrunk(glasses:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC1C4F9D-801E-458E-89F7-30E365F7B9C3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WaterReminder/Reminders/RemindersPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "setNewNotificationsIfNeeded()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC1C4F9D-801E-458E-89F7-30E365F7B9C3 - f6d778ecb09e07d2"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.deleteOldNotifications(ids: Swift.Array&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "240">
+               </Location>
+               <Location
+                  uuid = "DC1C4F9D-801E-458E-89F7-30E365F7B9C3 - d3335f098b8b6ca5"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.setNewNotificationsIfNeeded() -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "536">
+               </Location>
+               <Location
+                  uuid = "DC1C4F9D-801E-458E-89F7-30E365F7B9C3 - d3335f098b8b6c84"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.setNewNotificationsIfNeeded() -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "648">
+               </Location>
+               <Location
+                  uuid = "DC1C4F9D-801E-458E-89F7-30E365F7B9C3 - d3335f098b8b6c84"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.setNewNotificationsIfNeeded() -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "768">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "927F9ECB-8245-42A6-9C63-D0FE809A9E1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WaterReminder/Reminders/RemindersPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "refreshNotifications()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE15D313-2320-4563-8252-B522D67D5D67"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WaterReminder/Reminders/RemindersPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "setNewNotificationsIfNeeded()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CE15D313-2320-4563-8252-B522D67D5D67 - d3335f098b8b6a11"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.setNewNotificationsIfNeeded() -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "1816">
+               </Location>
+               <Location
+                  uuid = "CE15D313-2320-4563-8252-B522D67D5D67 - d3335f098b8b6a11"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WaterReminder.RemindersPresenter.setNewNotificationsIfNeeded() -&gt; ()"
+                  moduleName = "WaterReminder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uliana/Desktop/WaterReminder/WaterReminder/WaterReminder/Reminders/RemindersPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "1936">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

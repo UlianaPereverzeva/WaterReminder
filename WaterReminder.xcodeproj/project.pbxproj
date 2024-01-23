@@ -13,6 +13,10 @@
 		85094A022B52956500A856C2 /* MyAccountViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A012B52956500A856C2 /* MyAccountViewProtocol.swift */; };
 		85094A042B52961E00A856C2 /* MyAccountPresenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A032B52961E00A856C2 /* MyAccountPresenerProtocol.swift */; };
 		85094A082B5579C100A856C2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A072B5579C100A856C2 /* Models.swift */; };
+		85094A0A2B5694E600A856C2 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A092B5694E600A856C2 /* Notifications.swift */; };
+		85094A0C2B57094A00A856C2 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A0B2B57094A00A856C2 /* MainViewProtocol.swift */; };
+		85094A0E2B57097D00A856C2 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A0D2B57097D00A856C2 /* MainPresenterProtocol.swift */; };
+		85094A102B5709A900A856C2 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85094A0F2B5709A900A856C2 /* MainPresenter.swift */; };
 		8555976F2B47140D002909EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8555976E2B47140D002909EB /* AppDelegate.swift */; };
 		855597712B47140D002909EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597702B47140D002909EB /* SceneDelegate.swift */; };
 		855597782B47140F002909EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 855597772B47140F002909EB /* Assets.xcassets */; };
@@ -25,6 +29,7 @@
 		8555978F2B47F1CD002909EB /* RemindersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8555978E2B47F1CD002909EB /* RemindersPresenterProtocol.swift */; };
 		855597932B47F3CF002909EB /* RemindersViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597922B47F3CF002909EB /* RemindersViewProtocol.swift */; };
 		855597952B47F473002909EB /* RemindersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855597942B47F473002909EB /* RemindersPresenter.swift */; };
+		85FB9EB42B5A8F12001CD329 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB9EB32B5A8F12001CD329 /* CircularProgressBar.swift */; };
 		BF285DB58326A448110E298C /* Pods_WaterReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0B7E1226F78C42A26B419F /* Pods_WaterReminder.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +43,10 @@
 		85094A012B52956500A856C2 /* MyAccountViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewProtocol.swift; sourceTree = "<group>"; };
 		85094A032B52961E00A856C2 /* MyAccountPresenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenerProtocol.swift; sourceTree = "<group>"; };
 		85094A072B5579C100A856C2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		85094A092B5694E600A856C2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		85094A0B2B57094A00A856C2 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
+		85094A0D2B57097D00A856C2 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
+		85094A0F2B5709A900A856C2 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		8555976B2B47140D002909EB /* WaterReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8555976E2B47140D002909EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		855597702B47140D002909EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 		8555978E2B47F1CD002909EB /* RemindersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersPresenterProtocol.swift; sourceTree = "<group>"; };
 		855597922B47F3CF002909EB /* RemindersViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewProtocol.swift; sourceTree = "<group>"; };
 		855597942B47F473002909EB /* RemindersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersPresenter.swift; sourceTree = "<group>"; };
+		85FB9EB32B5A8F12001CD329 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +108,11 @@
 		85094A062B553EC800A856C2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				85FB9EB32B5A8F12001CD329 /* CircularProgressBar.swift */,
 				855597842B4716A8002909EB /* MainViewController.swift */,
+				85094A0B2B57094A00A856C2 /* MainViewProtocol.swift */,
+				85094A0D2B57097D00A856C2 /* MainPresenterProtocol.swift */,
+				85094A0F2B5709A900A856C2 /* MainPresenter.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -132,6 +146,7 @@
 				8555977C2B47140F002909EB /* Info.plist */,
 				855597822B471628002909EB /* TabBar.swift */,
 				8555978D2B475193002909EB /* Supporting Files */,
+				85094A092B5694E600A856C2 /* Notifications.swift */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
@@ -277,15 +292,20 @@
 				850949FD2B4EE8E500A856C2 /* UserDefaultsManager.swift in Sources */,
 				855597932B47F3CF002909EB /* RemindersViewProtocol.swift in Sources */,
 				85094A082B5579C100A856C2 /* Models.swift in Sources */,
+				85094A0C2B57094A00A856C2 /* MainViewProtocol.swift in Sources */,
 				8555978B2B4730E9002909EB /* MyAccountViewController.swift in Sources */,
+				85094A0E2B57097D00A856C2 /* MainPresenterProtocol.swift in Sources */,
 				855597952B47F473002909EB /* RemindersPresenter.swift in Sources */,
 				85094A022B52956500A856C2 /* MyAccountViewProtocol.swift in Sources */,
+				85FB9EB42B5A8F12001CD329 /* CircularProgressBar.swift in Sources */,
 				855597832B471628002909EB /* TabBar.swift in Sources */,
 				8555978F2B47F1CD002909EB /* RemindersPresenterProtocol.swift in Sources */,
 				8555976F2B47140D002909EB /* AppDelegate.swift in Sources */,
 				855597852B4716A8002909EB /* MainViewController.swift in Sources */,
+				85094A0A2B5694E600A856C2 /* Notifications.swift in Sources */,
 				855597712B47140D002909EB /* SceneDelegate.swift in Sources */,
 				85094A002B5294DE00A856C2 /* MyAccountPresenter.swift in Sources */,
+				85094A102B5709A900A856C2 /* MainPresenter.swift in Sources */,
 				850949FB2B4EE8A700A856C2 /* UserSettingsProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

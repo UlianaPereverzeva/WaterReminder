@@ -12,9 +12,8 @@ protocol RemindersPresenterProtocol {
     func setView(_ view: RemindersViewProtocol)
     func viewDidLoad()
     func didSelectSettingsType(type: ReminderSettingsType)
-    func handleSelectedTime(_ time: Any)
+    func handleSelectedTime(_ time: String)
     func handleSwitchValueChanged(isOn: Bool)
     var userDefaults: UserSettings { get }
-    //func scheduleNotification()
 }
 

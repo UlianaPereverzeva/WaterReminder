@@ -19,8 +19,6 @@ final class MyAccountViewController: UIViewController {
     var averageButton: UIButton?
     var highButton: UIButton?
     
-    
-    
     let weightTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +114,7 @@ final class MyAccountViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 68, weight: .bold)
         return label
     }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
@@ -130,7 +128,7 @@ final class MyAccountViewController: UIViewController {
         view.backgroundColor = .systemBlue
     }
     
-    func setUpGenderStackView() {
+    private func setUpGenderStackView() {
         genderStackView.axis = .horizontal
         genderStackView.spacing = 25
         genderStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -144,7 +142,7 @@ final class MyAccountViewController: UIViewController {
         self.womenButton = womenButton
     }
     
-    func setUpActivityLevelStackView() {
+    private func setUpActivityLevelStackView() {
         activityLevelStackView.axis = .horizontal
         activityLevelStackView.spacing = 8
         activityLevelStackView.alignment = .fill
@@ -164,7 +162,7 @@ final class MyAccountViewController: UIViewController {
         activityLevelStackView.addArrangedSubview(highButton)
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         view.addSubview(mainLabelWaterIntake)
         view.addSubview(labelUnderMain)
         view.addSubview(genderLabel)
@@ -212,9 +210,10 @@ final class MyAccountViewController: UIViewController {
         
         mlLevelLabel.topAnchor.constraint(equalTo: waterIntakeLevelLabel.bottomAnchor, constant: 26).isActive = true
         mlLevelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
     }
     
-    func makeGenderButton(gender: Gender) -> UIButton {
+    private func makeGenderButton(gender: Gender) -> UIButton {
         let button = UIButton(type: .custom)
         button.accessibilityIdentifier = gender.identifier
         
@@ -243,7 +242,7 @@ final class MyAccountViewController: UIViewController {
         }
     }
     
-    func makeActivityLevelButton(title: String, backgroundColor: UIColor, titleColor: UIColor, identifier: String) -> UIButton {
+    private func makeActivityLevelButton(title: String, backgroundColor: UIColor, titleColor: UIColor, identifier: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.backgroundColor = backgroundColor
@@ -267,13 +266,13 @@ final class MyAccountViewController: UIViewController {
         }
     }
     
-    func setupGenderButton(button: UIButton?, selected: Bool) {
+    private func setupGenderButton(button: UIButton?, selected: Bool) {
         button?.layer.borderWidth = 0.0
         button?.layer.borderWidth = selected ? 5.0 : 0.0
         button?.layer.cornerRadius = selected ? 28 : 0
         button?.layer.borderColor = selected ? CGColor(red: 0.56, green: 0.71, blue: 1.00, alpha: 1.00) : .none
     }
-    func setupActivityLevelButton(button: UIButton?, selected: Bool) {
+    private func setupActivityLevelButton(button: UIButton?, selected: Bool) {
         button?.layer.borderWidth = 0.0
         button?.layer.borderWidth = selected ? 5.0 : 0.0
         button?.layer.cornerRadius = 8

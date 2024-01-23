@@ -10,9 +10,18 @@ import UIKit
 final class RemindersViewController: UIViewController {
     
     private var presenter: RemindersPresenterProtocol = RemindersPresenter()
-    
+    var saveButton: UIButton?
+
     private var tableView: UITableView!
-    let intervals = ["15 минут", "30 минут", "1 час", "2 часа", "3 часа"]
+    let intervals = ["1", "2", "3"]
+    let hoursArray: [String] = {
+            var hours = [String]()
+            for hour in 0..<24 {
+                hours.append(String(format: "%02d", hour))
+            }
+            return hours
+        }()
+    var isIntervalSelection = false
     var configuration: Configuration?
     
     private enum Section: Int {
@@ -77,11 +86,11 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReminderCell
             switch indexPath.row {
             case 0:
-                cell.configure(text: "From", time: configuration?.from ?? "00:00")
+                cell.configure(text: "From", time: String(configuration?.from ?? 0) + ":00")
             case 1:
-                cell.configure(text: "To", time: configuration?.to ?? "00:00")
+                cell.configure(text: "To", time: String(configuration?.to ?? 0) + ":00")
             case 2:
-                cell.configure(text: "Interval", time: configuration?.interval ?? "0")
+                cell.configure(text: "Interval", time: String(configuration?.interval ?? 0) + " hour")
             default:
                 cell.configure(text: "", time: "")
             }
@@ -125,10 +134,19 @@ extension RemindersViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        intervals.count
+        if isIntervalSelection {
+            return intervals.count
+        } else {
+            return hoursArray.count
+        }
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        intervals[row]
+        if isIntervalSelection {
+            return intervals[row]
+        } else {
+            return hoursArray[row] + ":00"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -144,18 +162,19 @@ extension RemindersViewController: RemindersViewProtocol {
     }
     
     func showTimePicker() {
+        isIntervalSelection = false
+
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
         
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .time
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.locale = Locale(identifier: "ru_RU")
+        let datePicker = UIPickerView()
+        datePicker.delegate = self
+        datePicker.dataSource = self
         datePicker.frame = CGRect(x: 0, y: 0, width: alertController.view.frame.width - 20, height: 160)
-        
         alertController.view.addSubview(datePicker)
         
         let doneAction = UIAlertAction(title: "Save", style: .default) { _ in
-            let selectedTime = datePicker.countDownDuration
+            let selectedTimeRow = datePicker.selectedRow(inComponent: 0)
+            let selectedTime = self.hoursArray[selectedTimeRow]
             self.presenter.handleSelectedTime(selectedTime)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -168,7 +187,8 @@ extension RemindersViewController: RemindersViewProtocol {
     
     
     func showIntervalPicker() {
-        
+        isIntervalSelection = true
+
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
         let intervalPicker = UIPickerView()
         intervalPicker.delegate = self
@@ -188,6 +208,7 @@ extension RemindersViewController: RemindersViewProtocol {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
+        
     }
 }
 extension RemindersViewController: SwitchTableViewCellDelegate {

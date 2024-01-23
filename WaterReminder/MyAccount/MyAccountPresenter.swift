@@ -33,7 +33,6 @@ extension MyAccountPresenter: MyAccountPresenerProtocol {
         default:
             return
         }
-        
         if let activityLevel = getActivityLevelFromUserDefaults() {
             view?.setSelectedActivityLevel(activity: activityLevel)
         }
@@ -43,7 +42,7 @@ extension MyAccountPresenter: MyAccountPresenerProtocol {
     
     func getWaterIntakeFromUserDefaults() {
         guard let water = userDefaults.getWaterIntake(forKey: "userWaterIntake") else { return }
-        view?.updateWaterIntakeLabel(water)
+        view?.updateWaterIntakeLabel("\(water) ml")
         return
     }
     
@@ -66,7 +65,7 @@ extension MyAccountPresenter: MyAccountPresenerProtocol {
             return
         }
         let waterIntake = weight * activityMultiplier
-        userDefaults.saveWaterIntake("\(waterIntake) ml", forKey: "userWaterIntake")
+        userDefaults.saveWaterIntake("\(waterIntake)", forKey: "userWaterIntake")
         view?.updateWaterIntakeLabel("\(waterIntake) ml")
     }
     

@@ -6,6 +6,5 @@ target 'WaterReminder' do
   use_frameworks!
 
   # Pods for WaterReminder
-#pod 'GradientCircularProgress', :git => 'https://github.com/keygx/GradientCircularProgress'
 
 end
